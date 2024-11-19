@@ -35,6 +35,9 @@ greaterThan(QT_MAJOR_VERSION, 5) {
  message("Qt version >= 6.0.0")
  QMAKE_CXXFLAGS += -fPIE
  QMAKE_LFLAGS += -fPIE
+ 
+ QT += core5compat
+ 
 }
 
 #
@@ -55,6 +58,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 TEMPLATE = app
 QT += widgets network
+
 CONFIG	+= qt c++17 strict_c++
 CONFIG	+= warn_on
 QT_CONFIG -= no-pkg-config
@@ -63,13 +67,9 @@ VERSION = 0.0.0
 
 PKGCONFIG += fftw3 zlib libpng libjpeg libcurl
 
-equals( HOST, "gimp" ) {
-  PKGCONFIG += gimp-2.0
-}
 
-equals( HOST, "gimp3" ) {
-  PKGCONFIG += gimp-3.0
-}
+PKGCONFIG += gimp-3.0
+
 
 equals( HOST, "8bf") {
   PKGCONFIG += lcms2
