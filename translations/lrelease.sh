@@ -5,7 +5,7 @@ function usage()
 Usage:
        `basename $0` file.ts
 
-   Call lrelease or lrelease-qt5 on file, depending on which command exists.
+   Call lrelease or lrelease-qt6 on file, depending on which command exists.
 
 EOF
   exit 0
@@ -28,8 +28,8 @@ in="$1"
 [[ ! -e "$in" ]] && die "File not found: $in"
 [[ ! $in =~ .*\.ts$  ]] && die "Not a ts file: $in"
 
-if exists lrelease-qt5 ; then
-  exec lrelease-qt5 -compress "$in"
+if exists lrelease-qt6 ; then
+  exec lrelease-qt6 -compress "$in"
 elif exists lrelease ; then
   exec lrelease -compress "$in"
 else
