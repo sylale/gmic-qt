@@ -1,3 +1,5 @@
+***** GITHUB FOR GIMP-3.0.0 *****
+
 
 # G'MIC-Qt: a versatile G'MIC plugin
 
