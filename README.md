@@ -1,5 +1,9 @@
 ***** GITHUB FOR GIMP-3.0.0 *****
-
+To compile the GIMP plug-in with these sources you must modify the G'MIC CLI Makefile by acting on all the variables 
+     HOST=gimp3 or HOST=gimp 
+AND the variable 
+     QMAKE = qmake or QMAKE = qmake6 
+(see examples in the Makefile_GMIC-CLI_Modif folder).
 
 # G'MIC-Qt: a versatile G'MIC plugin
 
