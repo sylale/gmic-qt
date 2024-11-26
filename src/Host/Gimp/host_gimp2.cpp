@@ -22,23 +22,7 @@
  *  along with gmic_qt.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include <libgimp/gimp.h>
-#include <QDebug>
-#include <QFileInfo>
-#include <QRegularExpression>
-#include <QString>
-#include <algorithm>
-#include <limits>
-#include <stack>
-#include <vector>
-#ifdef _IS_WINDOWS_
-#include <QTextCodec>
-#endif
-#include "Common.h"
-#include "GmicQt.h"
-#include "Host/GmicQtHost.h"
-#include "ImageTools.h"
-#include "gmic.h"
+
 
 /*
  * Part of this code is much inspired by the original source code
