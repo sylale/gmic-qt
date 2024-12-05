@@ -1129,13 +1129,13 @@ static GimpProcedure * gmic_qt_create_procedure(GimpPlugIn * plug_in, const gcha
 
 
    gimp_procedure_add_int_argument(procedure,
-				   "input",                                                                                                                                   // name
-				   "input",                                                                                                                                   // nick
-				   "Input layers mode, when non-interactive (0=none, 1=active, 2=all, 3=active & below, 4=active & above, 5=all visibles, 6=all invisibles)", // blurb
-				   0,                                                                                                                                         // min
-				   6,                                                                                                                                         // max
-				   0,                                                                                                                                         // default
-				   G_PARAM_READWRITE);                                                                                                                        // flags
+				   "input",                                                                                                                                     // name
+				   "input",                                                                                                                                     // nick
+				   "Input layers mode, when non-interactive (0=none, 1=active, 2=all, 3=active and below, 4=active and above, 5=all visible, 6=all invisible)", // blurb
+				   0,                                                                                                                                           // min
+				   6,                                                                                                                                           // max
+				   0,                                                                                                                                           // default
+				   G_PARAM_READWRITE);                                                                                                                          // flags
 
     gimp_procedure_add_int_argument(procedure,
 				    "output",                                                                                      // name
