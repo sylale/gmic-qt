@@ -2,12 +2,16 @@
 
 To compile the GIMP plug-in with these sources you must modify the G'MIC CLI Makefile by acting on all the variables 
 
-     HOST=gimp3 or HOST=gimp 
+     HOST=gimp3 or HOST=gimp
+     COMPILER=clang or COMPILER=gcc
+     LTO=on or LTO=off
+     ASAN=off or ASAN=on
+     SAMJ=on or SAMJ=off
      
 AND the variable 
 
      QMAKE = qmake or QMAKE = qmake6 
-     
+
 (see examples in the Makefile_GMIC-CLI_Modif folder).
 
 

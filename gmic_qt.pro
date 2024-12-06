@@ -21,6 +21,9 @@
 # Possible values are "on" or "off"
 !defined(LTO,var) { LTO=off }
 
+# Possible values are "on" for Clang or "off"
+!defined(SAMJ,var) { SAMJ = off }
+
 #
 #
 #
@@ -57,7 +60,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 TEMPLATE = app
 QT += widgets network
 
-CONFIG	+= qt c++17 strict_c++
+equals( SAMJ, "on" ) {
+  # clang
+  CONFIG	+= qt -O3 -mtune=generic -stdlib=libc++
+}
+equals( SAMJ, "off" ) {
+  # origine
+  CONFIG	+= qt c++17 strict_c++
+}
+
 CONFIG	+= warn_on
 QT_CONFIG -= no-pkg-config
 CONFIG += link_pkgconfig
