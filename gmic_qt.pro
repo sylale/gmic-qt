@@ -62,7 +62,8 @@ QT += widgets network
 
 equals( SAMJ, "on" ) {
   # clang
-  CONFIG	+= qt -O3 -mtune=generic -stdlib=libc++
+  CONFIG	+= qt
+  QMAKE_CXXFLAGS += -O3 -ffast-math -stdlib=libc++ # -fno-fast-math or -ffast-math (test)
 }
 equals( SAMJ, "off" ) {
   # origine
