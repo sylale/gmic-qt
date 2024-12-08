@@ -63,7 +63,9 @@ QT += widgets network
 equals( SAMJ, "on" ) {
   # clang
   CONFIG	+= qt
-  QMAKE_CXXFLAGS += -O3 -ffast-math -stdlib=libc++ # -fno-fast-math or -ffast-math (test)
+  # rapide mais résultats ???      QMAKE_CXXFLAGS += -O3 -ffast-math -stdlib=libc++ # -fno-fast-math or -ffast-math (test)
+  QMAKE_CXXFLAGS += -O3 -fno-fast-math -stdlib=libc++
+  message(Optimization Clang test samj)
 }
 equals( SAMJ, "off" ) {
   # origine
@@ -184,11 +186,22 @@ equals( COMPILER, "clang" ) {
 
 LIBS += -lfftw3_threads
 
-win32 {
+equals( SAMJ, "on" ) {
+ win32 {
+  LIBS += -lpthread -DPSAPI_VERSION=1 -lgdi32
+  DEFINES += _IS_WINDOWS_
+  DEFINES += cimg_display=2
+  message( Windows/GDI32 platform samj )
+ }
+}
+
+equals( SAMJ, "off" ) {
+ win32 {
   DEFINES += _IS_WINDOWS_
   DEFINES += cimg_display=2
   LIBS += -mwindows -lpthread -DPSAPI_VERSION=1 -lpsapi -lgdi32
   message( Windows/GDI32 platform )
+ }
 }
 
 unix:!macx {
@@ -271,13 +284,27 @@ openmp:equals(COMPILER,"gcc") {
     QMAKE_LFLAGS_RELEASE += -fopenmp
 }
 
-openmp:equals(COMPILER,"clang") {
+equals( SAMJ, "on" ) {
+  # clang
+  openmp:equals(COMPILER,"clang") {
+    message("OpenMP enabled, with clang++, samj")
+    DEFINES += cimg_use_openmp
+    QMAKE_CXXFLAGS_DEBUG += -fopenmp=libomp -I/clang64/include
+    QMAKE_CXXFLAGS_RELEASE += -fopenmp=libomp  -I/clang64/include
+    QMAKE_LFLAGS_DEBUG += -fopenmp=libomp -L/clang64/lib
+    QMAKE_LFLAGS_RELEASE += -fopenmp=libomp -L/clang64/lib
+  }
+}
+equals( SAMJ, "off" ) {
+  # origine
+  openmp:equals(COMPILER,"clang") {
     message("OpenMP enabled, with clang++")
     DEFINES += cimg_use_openmp
     QMAKE_CXXFLAGS_DEBUG += -fopenmp=libomp -I/usr/lib/gcc/x86_64-redhat-linux/7/include/
     QMAKE_CXXFLAGS_RELEASE += -fopenmp=libomp  -I/usr/lib/gcc/x86_64-redhat-linux/7/include/
     QMAKE_LFLAGS_DEBUG += -fopenmp=libomp
     QMAKE_LFLAGS_RELEASE += -fopenmp=libomp
+  }
 }
 
 equals(LTO,"on") { LTO = ON }
