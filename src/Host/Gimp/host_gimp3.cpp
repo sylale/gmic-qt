@@ -120,7 +120,7 @@ static void gmic_qt_class_init(GmicQtPluginClass * klass)
   plug_in_class->create_procedure = gmic_qt_create_procedure;
 }
 
-static void gmic_qt_init(GmicQtPlugin * gmic_qt) {}
+static void gmic_qt_init(GmicQtPlugin * gmic_qt) { unused(gmic_qt); }
 
 
 
@@ -944,17 +944,15 @@ void outputImages(gmic_list<gmic_pixel_type> & images, const gmic_list<char> & i
         if (Mw && Mh) {
           gimp_image_resize(gmic_qt_gimp_image_id, Mw, Mh, -top_left.x, -top_left.y);
         }
-/*
-    // samj Pose des problèmes et semble inutile / Causes problems and seems unnecessary https://discuss.pixls.us/t/on-the-road-to-3-5/44490/39
 
-        GimpLayer * selected_layer;
+        GimpLayer * selected_layer[2] = { 0 };
         if (outputMode == GmicQt::OutputMode::NewLayers) {
-          selected_layer = active_layer_id;
+          selected_layer[0] = active_layer_id;
         } else {
-          selected_layer = top_layer_id;
+          selected_layer[0] = top_layer_id;
         }
-        gimp_image_set_selected_layers(gmic_qt_gimp_image_id, (const GimpLayer **)&selected_layer); // À voir si nécessaire car donne une erreur.
-*/
+        gimp_image_set_selected_layers(gmic_qt_gimp_image_id, (const GimpLayer **)selected_layer);
+
       }
       gimp_image_undo_group_end(gmic_qt_gimp_image_id);
     }
@@ -1032,6 +1030,7 @@ void outputImages(gmic_list<gmic_pixel_type> & images, const gmic_list<char> & i
 
 static GList * gmic_qt_query(GimpPlugIn * plug_in)
 {
+  unused(plug_in);
   return g_list_append(NULL, g_strdup(PLUG_IN_PROC));
 }
 
@@ -1048,6 +1047,7 @@ gmic_qt_run (GimpProcedure        *procedure,
           GimpProcedureConfig  *config,
           gpointer              run_data)
 {
+  unused(drawables, run_data);
   gegl_init(NULL, NULL);
 
   GmicQt::RunParameters pluginParameters;
