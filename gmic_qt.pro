@@ -24,8 +24,6 @@
 # Possible values are "on" for Clang or "off"
 !defined(SAMJ,var) { SAMJ = off }
 
-# Possible values are "on" or "off"
-!defined(SDL3,var) { SDL3=off }
 #
 #
 #
@@ -271,21 +269,6 @@ equals( HOST, "8bf") {
     CONFIG += openmp
 }
 
-
-unix:!macx {
-  DEFINES += _IS_UNIX_
-  equals( SDL3, "on") { # SDL3
-    DEFINES += cimg_display=3
-    PKGCONFIG += sdl3
-    message( Unix/SDL3 platform )
-  } else { # (X11)
-    DEFINES += cimg_display=1
-    PKGCONFIG += x11
-    message( Unix/X11 platform )
-  }
-}
-
-
 # use qmake CONFIG+=openmp ... to force using openmp
 # For example, on OS X with GCC 4.8 installed:
 # qmake -spec unsupported/macx-clang QMAKE_CXX=g++-4.8 QMAKE_LINK=g++-4.8 CONFIG+=openmp
@@ -310,13 +293,6 @@ equals( SAMJ, "on" ) {
     QMAKE_CXXFLAGS_RELEASE += -fopenmp=libomp  -I/clang64/include
     QMAKE_LFLAGS_DEBUG += -fopenmp=libomp -L/clang64/lib
     QMAKE_LFLAGS_RELEASE += -fopenmp=libomp -L/clang64/lib
-  }
-
-  # SDL3 à tester...
-  equals( SDL3, "on") { # SDL3
-    DEFINES += cimg_display=2
-    PKGCONFIG += sdl3
-    message( Unix/SDL3 platform )
   }
 }
 equals( SAMJ, "off" ) {
