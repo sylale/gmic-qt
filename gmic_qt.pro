@@ -24,6 +24,8 @@
 # Possible values are "on" for Clang or "off"
 !defined(SAMJ,var) { SAMJ = off }
 
+# Possible values are "on" or "off"
+!defined(SDL3,var) { SDL3=off }
 #
 #
 #
@@ -268,6 +270,15 @@ equals( HOST, "8bf") {
 !macx:equals(COMPILER,"clang") {
     CONFIG += openmp
 }
+
+
+equals( SDL3, "on") { # SDL3
+CONFIG(release, debug|release):gcc|clang:equals(SDL,"ON") {
+    message("SDL3-based display enabled")
+    QMAKE_CXXFLAGS_RELEASE += -Dcimg_display=3
+    QMAKE_LFLAGS_RELEASE += -lSDL3
+}
+
 
 # use qmake CONFIG+=openmp ... to force using openmp
 # For example, on OS X with GCC 4.8 installed:
