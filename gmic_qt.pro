@@ -272,11 +272,17 @@ equals( HOST, "8bf") {
 }
 
 
-equals( SDL3, "on") { # SDL3
-CONFIG(release, debug|release):gcc|clang:equals(SDL,"ON") {
-    message("SDL3-based display enabled")
-    QMAKE_CXXFLAGS_RELEASE += -Dcimg_display=3
-    QMAKE_LFLAGS_RELEASE += -lSDL3
+unix:!macx {
+  DEFINES += _IS_UNIX_
+  equals( SDL3, "on") { # SDL3
+    DEFINES += cimg_display=3
+    PKGCONFIG += sdl3
+    message( Unix/SDL3 platform )
+  } else { # (X11)
+    DEFINES += cimg_display=1
+    PKGCONFIG += x11
+    message( Unix/X11 platform )
+  }
 }
 
 
@@ -304,6 +310,13 @@ equals( SAMJ, "on" ) {
     QMAKE_CXXFLAGS_RELEASE += -fopenmp=libomp  -I/clang64/include
     QMAKE_LFLAGS_DEBUG += -fopenmp=libomp -L/clang64/lib
     QMAKE_LFLAGS_RELEASE += -fopenmp=libomp -L/clang64/lib
+  }
+
+  # SDL3 à tester...
+  equals( SDL3, "on") { # SDL3
+    DEFINES += cimg_display=2
+    PKGCONFIG += sdl3
+    message( Unix/SDL3 platform )
   }
 }
 equals( SAMJ, "off" ) {
